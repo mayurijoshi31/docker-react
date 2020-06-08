@@ -6,4 +6,17 @@ before_install:
   - docker build -t mayurijoshi3108/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run mayurijoshi3108/docker-react npm run test -- --coverage       
+  - docker run mayurijoshi3108/docker-react npm run test -- --coverage
+
+depoly:
+  provider: elasticbeanstalk
+  region: "ca-central-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-ca-central-1-714837449036" 
+  bucket_path: "docker-react"
+  on:
+    branch: master  
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET-KEY"  
